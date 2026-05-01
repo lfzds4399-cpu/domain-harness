@@ -1,0 +1,114 @@
+# domain-harness manifest
+# 自动化域名抢注+投资 harness
+# 默认 DRY_RUN，接 API key 后改 mode: live
+
+version: "0.1"
+name: domain-harness
+mode: dry_run  # dry_run | live
+
+# ============ 预算守卫（RiskGuard）============
+budget:
+  currency: USD
+  daily_limit: 50          # 单日总花费上限
+  monthly_limit: 1000      # 单月总花费上限
+  per_domain_register: 15  # 单域名直接注册上限（普通 .com $9.13，.ai 较贵）
+  per_domain_auction: 200  # 单域名拍卖出价上限
+  reserve_threshold: 100   # 余额低于此值停止一切买入
+
+# ============ TLD 优先级 ============
+tld:
+  whitelist: [com, ai, io, co, app, dev, xyz]
+  priority:
+    com: 100
+    ai: 85
+    io: 75
+    co: 65
+    app: 60
+    dev: 55
+    xyz: 30
+  blacklist: [info, biz, top, xn--]  # 这些不碰
+
+# ============ 评分门槛 ============
+# 设计原则：宁缺勿滥。每一笔买入都是真金白银，错买不如不买。
+scoring:
+  min_score_watchlist: 70    # 进观察名单（提高自 60，过滤纯发音类噪声）
+  min_score_auto_buy: 88     # 自动注册门槛（提高自 85，必须明显有商业信号）
+  min_score_council: 75      # 高于此分才喂 AI Council 复评（节省 token）
+  max_length: 12             # 超过此长度不考虑
+  prefer_length: 6           # ≤6 字符大幅加分
+  require_commercial_signal: true  # 硬门槛：必须命中字典词/行业词/极短品牌之一才考虑入选
+  council_min_per_provider: 70     # AI Council 每个 provider 都要 ≥此分才算通过
+
+# ============ 注册商适配（先全 stub，接 key 后激活）============
+registrars:
+  porkbun:
+    enabled: false
+    api_key: ""
+    secret_key: ""
+    priority: 1  # 首选（.com 最便宜）
+  cloudflare:
+    enabled: false
+    api_token: ""
+    account_id: ""
+    priority: 2  # 续费便宜，drop catch 不接
+  namecheap:
+    enabled: false
+    api_user: ""
+    api_key: ""
+    priority: 3
+  godaddy:
+    enabled: false
+    api_key: ""
+    api_secret: ""
+    priority: 4  # 主要用拍卖 API
+
+# ============ 数据源 ============
+sources:
+  expired_domains:
+    enabled: true
+    url: "https://www.expireddomains.net/expired-domains/"
+    daily_limit: 500  # 每天扫前 500 条
+  ai_generated:
+    enabled: true
+    daily_target: 100  # 每天 AI 生成多少候选
+    patterns: [cvcv, cvcvcv, dictionary_combo, brand_short]
+  godaddy_auctions:
+    enabled: false  # 需要 API key
+  namejet:
+    enabled: false
+  trends:
+    google_trends: true
+    product_hunt: true
+
+# ============ AI Council（估值复评）============
+council:
+  enabled: true
+  providers:
+    - name: anthropic
+      model: claude-opus-4-7
+      enabled: true
+    - name: deepseek
+      model: deepseek-chat
+      enabled: true
+  min_consensus: 0.7  # 双 AI 共识度（差距越小越高）；必须 ≥ 0.7 才进 auto_buy
+  require_both_providers: true  # 必须双 provider 都返回结果且都 ≥ council_min_per_provider
+
+# ============ 销售平台 ============
+sales:
+  platforms:
+    dan:
+      enabled: false
+      api_key: ""
+    afternic:
+      enabled: false
+    sedo:
+      enabled: false
+  pricing_strategy: aggressive  # conservative | balanced | aggressive
+  default_markup: 50  # 注册成本的 50 倍起价
+  parking_page: true
+
+# ============ Pipelines 调度 ============
+schedule:
+  daily_scan: "06:00"        # 每天发现+估值
+  auto_register: "06:30"     # 紧接着自动注册（dry_run 时只打日志）
+  portfolio_review: "monthly"  # 月度持仓回顾

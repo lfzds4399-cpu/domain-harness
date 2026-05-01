@@ -1,0 +1,24 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+
+# secrets
+.env
+*.env.local
+secrets.yaml
+secrets.json
+
+# runtime data (keep schema, not state)
+data/portfolio.json
+data/budget_state.json
+data/scan_history.jsonl
+data/selected.json
+data/backtest_*.json
+data/trademark_blacklist.txt
+logs/
+runs/
