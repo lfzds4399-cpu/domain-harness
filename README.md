@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Mode: dry_run by default](https://img.shields.io/badge/mode-dry__run%20by%20default-green.svg)](#configuration)
 
-> 中文版 → [README.zh-CN.md](./README.zh-CN.md)
+> 中文版 → [README.zh-CN.md](./README.zh-CN.md) · Docs → [getting-started](./docs/getting-started.md) · [FAQ](./docs/faq.md) · [troubleshooting](./docs/troubleshooting.md)
 
 **Automated domain investing pipeline.** Discover → value → register → list → settle —
 with hard budget walls and an AI Council that has to agree before any money moves.

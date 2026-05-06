@@ -35,7 +35,9 @@ def is_dry_run() -> bool:
 
 
 def data_dir() -> Path:
-    return ROOT / "data"
+    p = ROOT / "data"
+    p.mkdir(exist_ok=True)
+    return p
 
 
 def logs_dir() -> Path:

@@ -19,6 +19,6 @@ data/budget_state.json
 data/scan_history.jsonl
 data/selected.json
 data/backtest_*.json
-data/trademark_blacklist.txt
+# trademark_blacklist.txt is shipped seed data — do not gitignore
 logs/
 runs/
