@@ -13,7 +13,6 @@ from agents import sales
 
 
 def run() -> dict:
-    cfg = config.load()
     now = datetime.utcnow()
     p = store.portfolio()
     owned = p.get("owned", [])

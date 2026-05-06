@@ -27,7 +27,6 @@ from . import market_model
 
 def generate_pool(target: int = 500) -> list[dict]:
     """离线生成大批候选 — 不调 WHOIS（仿真不需要真可注册）"""
-    cfg = config.load()
     tlds = ["com", "ai", "io"]
     raw = discovery_aigen.generate(target, ["dictionary_combo", "cvcvcv", "cvcv", "brand_short"], tlds)
     out = []

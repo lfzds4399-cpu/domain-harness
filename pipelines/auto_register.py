@@ -51,7 +51,6 @@ def run(dry_only: bool = False) -> dict:
     for c in candidates:
         domain = c["domain"]
         score = c.get("score") or 0
-        council = c.get("council_score")
         consensus = c.get("consensus")
         providers = c.get("providers") or {}
 

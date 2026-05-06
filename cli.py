@@ -38,7 +38,7 @@ def cmd_status(args):
     listed = [x for x in owned if "listed_price_usd" in x]
     watch = p.get("watchlist", [])
 
-    print(f"\n=== domain-harness status ===")
+    print("\n=== domain-harness status ===")
     print(f"mode:        {cfg.get('mode')}")
     print(f"daily 余额:  ${b['daily_remaining']}")
     print(f"monthly 余额:${b['monthly_remaining']}")
