@@ -229,11 +229,50 @@ print("\n[10] AI 议价（无 key 时降级策略）")
 
 @case(f"negotiate_reply({TEST_DOMAIN}, $200) 返回 counter_offer")
 def _():
+    import os
     from agents import sales
-    r = sales.negotiate_reply(TEST_DOMAIN, buyer_offer=200)
+    # Smoke test must not hit the real LLM — clear the key locally so we
+    # exercise the deterministic fallback regardless of operator env.
+    saved = os.environ.pop("ANTHROPIC_API_KEY", None)
+    try:
+        r = sales.negotiate_reply(TEST_DOMAIN, buyer_offer=200)
+    finally:
+        if saved is not None:
+            os.environ["ANTHROPIC_API_KEY"] = saved
     assert "counter_offer_usd" in r
     assert "reply" in r
     assert r["counter_offer_usd"] > 0
+    assert r.get("ai") is False, "smoke must take the deterministic fallback path"
+
+
+# ---------- 12. validators: secret_scanner + cost_tracker ----------
+print("\n[12] secret_scanner / cost_tracker")
+
+@case("secret_scanner 在 repo 上跑出 0 finding")
+def _():
+    from validators import secret_scanner
+    findings = secret_scanner.scan(ROOT)
+    assert findings == [], f"expected clean, got {len(findings)} finding(s): {findings[:2]}"
+
+@case("cost_tracker 累计金额")
+def _():
+    from validators import cost_tracker
+    cost_tracker.reset()
+    cost_tracker.record("anthropic", "valuation", 0.012, tokens_in=500, tokens_out=200)
+    cost_tracker.record("deepseek", "valuation", 0.003, tokens_in=500, tokens_out=200)
+    rep = cost_tracker.report()
+    assert rep["calls"] == 2
+    assert abs(rep["total_usd"] - 0.015) < 1e-6
+    assert rep["by_provider"]["anthropic"] == 0.012
+    assert rep["tokens_in"] == 1000
+
+@case("cost_tracker.reset 后归零")
+def _():
+    from validators import cost_tracker
+    cost_tracker.record("openai", "negotiation", 0.01)
+    cost_tracker.reset()
+    assert cost_tracker.total_usd() == 0.0
+    assert cost_tracker.report()["calls"] == 0
 
 
 # ---------- 11. 清理测试数据 ----------
