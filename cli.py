@@ -194,6 +194,11 @@ def cmd_simulate(args):
 
 def build_parser():
     p = argparse.ArgumentParser(prog="domain-harness")
+    p.add_argument(
+        "-q", "--quiet",
+        action="store_true",
+        help="quiet console (file logs unaffected) — for CC sessions / cron",
+    )
     sub = p.add_subparsers(dest="cmd", required=True)
 
     sub.add_parser("status").set_defaults(fn=cmd_status)
@@ -247,6 +252,8 @@ def build_parser():
 
 def main():
     args = build_parser().parse_args()
+    if getattr(args, "quiet", False):
+        log.set_quiet(True)
     args.fn(args)
 
 
