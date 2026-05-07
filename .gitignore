@@ -22,3 +22,6 @@ data/backtest_*.json
 # trademark_blacklist.txt is shipped seed data — do not gitignore
 logs/
 runs/
+
+# marketing copy (private launch playbook)
+marketing/
