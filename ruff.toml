@@ -1,0 +1,23 @@
+# domain-harness ruff config — minimal, ergonomic.
+target-version = "py310"
+line-length = 100
+
+exclude = [
+  "data",
+  "logs",
+  "build",
+  "dist",
+  ".venv",
+]
+
+[lint]
+# Default rule set is fine; we just relax two patterns this repo uses freely.
+# - E701: short `if ...: return ...` guards (e.g. valuation lookup tables).
+# - E501: long lines accepted in long-string contexts; line-length already 100.
+ignore = ["E501", "E701"]
+
+[lint.per-file-ignores]
+# tests/e2e_smoke.py uses inline `import random` next to the test case it's
+# scoped to so the test text stays self-documenting; the smoke runner is not
+# pytest-collected so module-level discipline does not buy us anything.
+"tests/e2e_smoke.py" = ["E402"]

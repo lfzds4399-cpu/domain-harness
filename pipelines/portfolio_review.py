@@ -6,9 +6,9 @@
 - 已挂牌 ≥ 180 天且无询价 → 调降 20% 或转其他平台
 """
 from __future__ import annotations
-from datetime import datetime, timedelta
+from datetime import datetime
 
-from core import config, store, log
+from core import store, log
 from agents import sales
 
 

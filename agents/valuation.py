@@ -12,7 +12,6 @@
 返回 score 0-100，附带 breakdown 便于审计。
 """
 from __future__ import annotations
-import re
 from typing import Iterable
 
 from core import config

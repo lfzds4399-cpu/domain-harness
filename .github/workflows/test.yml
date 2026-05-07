@@ -47,4 +47,7 @@ jobs:
       - name: Install ruff
         run: pip install ruff
       - name: Ruff check
-        run: ruff check . --select=F,E9 --ignore=F401,F811
+        # Rules + ignores live in ruff.toml so pre-commit, IDE, and CI share
+        # one view. Previously we narrowed to F,E9 here to ship MVP green; the
+        # repo is clean against the default rule set now.
+        run: ruff check .

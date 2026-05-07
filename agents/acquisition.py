@@ -10,7 +10,6 @@ DRY_RUN 模式下不真实下单，只记录日志和 portfolio。
 3) budget_guard（预算守卫）
 """
 from __future__ import annotations
-import os
 from datetime import datetime, timedelta
 from typing import Optional
 

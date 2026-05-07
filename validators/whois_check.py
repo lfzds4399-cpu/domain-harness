@@ -4,7 +4,6 @@ DRY_RUN 模式下用 DNS + 简单 RDAP 查询；live 模式建议接注册商 AP
 """
 from __future__ import annotations
 import socket
-from typing import Optional
 
 import requests
 

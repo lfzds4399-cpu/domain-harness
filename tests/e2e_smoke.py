@@ -16,7 +16,6 @@
 每一项 PASS/FAIL 单独打印，最后给汇总。
 """
 from __future__ import annotations
-import json
 import sys
 import traceback
 from pathlib import Path
@@ -169,7 +168,8 @@ def _():
 print("\n[7] DRY_RUN 注册（不真实下单）")
 
 # 用一个绝对不存在的随机域名
-import random, string
+import random
+import string
 TEST_DOMAIN = "drytest" + "".join(random.choices(string.ascii_lowercase, k=8)) + ".com"
 
 @case(f"acquisition.buy({TEST_DOMAIN}) DRY_RUN")

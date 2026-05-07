@@ -7,7 +7,6 @@ DRY_RUN 时如果抓不到（被墙/限流），降级到本地 sample 数据让
 """
 from __future__ import annotations
 import re
-from typing import Optional
 
 import requests
 from bs4 import BeautifulSoup

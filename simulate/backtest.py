@@ -19,7 +19,6 @@ import statistics
 from datetime import datetime
 from pathlib import Path
 
-from core import config
 from agents import discovery_aigen, valuation
 from validators import trademark_check
 from . import market_model
