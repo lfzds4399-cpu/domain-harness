@@ -24,7 +24,11 @@ def _write(name: str, payload: dict) -> None:
 
 # -------- portfolio --------
 def portfolio() -> dict:
-    return _read("portfolio.json")
+    p = _read("portfolio.json")
+    p.setdefault("owned", [])
+    p.setdefault("watchlist", [])
+    p.setdefault("blacklist", [])
+    return p
 
 
 def save_portfolio(p: dict) -> None:
@@ -58,7 +62,9 @@ def is_owned(domain: str) -> bool:
 
 # -------- budget --------
 def budget() -> dict:
-    return _read("budget_state.json")
+    b = _read("budget_state.json")
+    b.setdefault("lifetime", {"total_spent_usd": 0, "domains_bought": 0})
+    return b
 
 
 def save_budget(b: dict) -> None:
