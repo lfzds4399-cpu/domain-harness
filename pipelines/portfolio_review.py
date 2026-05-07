@@ -65,6 +65,14 @@ def run() -> dict:
     }
     log.ok("===== portfolio_review 完成 =====",
            owned=len(owned), actions=len(actions))
+
+    from core import manifest
+    manifest.update(
+        manifest.STAGE_PORTFOLIO_REVIEW,
+        status="done",
+        owned=len(owned),
+        actions=len(actions),
+    )
     return summary
 
 

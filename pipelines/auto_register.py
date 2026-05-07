@@ -117,6 +117,15 @@ def run(dry_only: bool = False) -> dict:
     log.ok("===== auto_register 完成 =====",
            bought=len(bought), skipped=skipped, errors=len(errors),
            reasons=summary["skip_reasons"])
+
+    from core import manifest
+    manifest.update(
+        manifest.STAGE_AUTO_REGISTER,
+        status="failed" if errors else "done",
+        bought=len(bought),
+        skipped=skipped,
+        errors=len(errors),
+    )
     return summary
 
 

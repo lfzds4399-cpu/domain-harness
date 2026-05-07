@@ -99,6 +99,16 @@ def run(daily_target: int | None = None) -> dict:
            watch=summary["added_to_watchlist"],
            rejected_noise=rejected_no_signal,
            dur=f"{summary['duration_sec']:.1f}s")
+
+    from core import manifest
+    top_score = summary["top10"][0]["score"] if summary["top10"] else 0
+    manifest.update(
+        manifest.STAGE_DAILY_SCAN,
+        status="done",
+        candidates=summary["total_candidates"],
+        watch_added=summary["added_to_watchlist"],
+        top_score=top_score,
+    )
     return summary
 
 

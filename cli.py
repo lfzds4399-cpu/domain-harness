@@ -46,6 +46,10 @@ def cmd_status(args):
     print(f"已挂牌:      {len(listed)}")
     print(f"watchlist:   {len(watch)}")
 
+    from core import manifest
+    print("\n— pipeline stages (manifest) —")
+    print(manifest.summary())
+
     if owned:
         print("\n— 持仓 (前 10) —")
         for r in owned[:10]:
@@ -192,6 +196,11 @@ def cmd_simulate(args):
         print(f"完整报告已保存到 {out_path}")
 
 
+def cmd_manifest(args):
+    from core import manifest
+    print(manifest.summary())
+
+
 def build_parser():
     p = argparse.ArgumentParser(prog="domain-harness")
     p.add_argument(
@@ -237,6 +246,7 @@ def build_parser():
 
     sub.add_parser("budget").set_defaults(fn=cmd_budget)
     sub.add_parser("selected", help="显示上次仿真标记的选中域名").set_defaults(fn=cmd_selected)
+    sub.add_parser("manifest", help="show pipeline stage manifest").set_defaults(fn=cmd_manifest)
 
     s = sub.add_parser("simulate", help="离线回测仿真 — 评估策略预期 ROI")
     s.add_argument("--pool", type=int, default=1000, help="生成候选池规模")

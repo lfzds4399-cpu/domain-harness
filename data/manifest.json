@@ -1,0 +1,12 @@
+{
+  "daily_scan": {
+    "name": "daily_scan",
+    "status": "done",
+    "updated_at": "2026-05-07T10:55:49+00:00",
+    "extra": {
+      "candidates": 1,
+      "watch_added": 0,
+      "top_score": 12
+    }
+  }
+}
