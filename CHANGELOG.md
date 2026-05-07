@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] — 2026-05-07
+
+Lifts the repo onto the harness-engineering pattern (logging quiet mode, unified pipeline manifest, ship-with-every-harness validators) without breaking any existing surface.
+
+### Added
+- **`-q` / `--quiet` flag + `DOMAIN_HARNESS_QUIET` env var** — suppresses INFO/OK/DRY console output for CC sessions and cron, while the JSONL file log keeps the complete record. Implementation in `core/log.py`.
+- **`core/manifest.py`** — top-level pipeline-stage manifest. Each pipeline (`daily_scan`, `auto_register`, `portfolio_review`) records a one-line summary (counts, errors, status) on completion. Persists at `data/manifest.json`. Surfaced via `domain-harness status` and a new `domain-harness manifest` command.
+- **`validators/secret_scanner.py`** — repo-tree scan for high-confidence credential patterns (sk-ant-, AKIA, ghp_, AIza, hf_, slack/replicate tokens). CLI: `python -m validators.secret_scanner --root . --strict` for pre-commit / CI. Honours inline `# allow-secret-here` placeholder hints.
+- **`validators/cost_tracker.py`** — process-local API spend ledger. Pipelines call `record(provider, op, usd)` at every external call; `report()` returns a per-provider / per-operation summary suitable for embedding in a manifest entry. Uses `RLock` so `report()` can compose `by_provider()` / `by_operation()` without deadlocking.
+- **3 new `e2e_smoke.py` cases** covering the new validators (clean scan + accumulation + reset round-trip). Total: 25/25 PASS, was 22/22.
+
+### Changed
+- e2e_smoke.py clears `ANTHROPIC_API_KEY` around the `negotiate_reply` case so the deterministic fallback path runs regardless of operator env.
+
+### Deferred to v0.4.0
+- [#5](https://github.com/lfzds4399-cpu/domain-harness/issues/5) — migrate to `src/` layout
+- [#6](https://github.com/lfzds4399-cpu/domain-harness/issues/6) — replace argparse with typer
+
 ## [0.2.0] — 2026-05-07
 
 ### Fixed
