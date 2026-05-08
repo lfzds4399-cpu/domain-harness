@@ -160,6 +160,18 @@ Domain investing involves financial risk. This tool will spend real money once `
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). The bar is: every spend gate must be exercised by a smoke case.
 
+## Sibling projects
+
+Other small, single-author harnesses I publish under [@lfzds4399-cpu](https://github.com/lfzds4399-cpu) — same MIT, same opinionated taste:
+
+| Repo | One line |
+|---|---|
+| [**ai-council**](https://github.com/lfzds4399-cpu/ai-council) | The multi-voter consensus framework that powers the valuation gate here — extracted, zero-dep, reusable |
+| [**voice2ai**](https://github.com/lfzds4399-cpu/voice2ai) | Hands-free dictation for Windows — push-to-talk into VS Code / Cursor / WeChat / browsers, 4 STT providers |
+| [**sitige-harness**](https://github.com/lfzds4399-cpu/sitige-harness) | Pipeline runtime — composable agents / validators / pipelines, async, observable. domain-harness uses the same three-layer pattern |
+
+If domain-harness is useful, ⭐ the repo — it's the cheapest signal and it actually moves the needle.
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).
