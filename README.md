@@ -7,6 +7,8 @@
 
 > 中文版 → [README.zh-CN.md](./README.zh-CN.md) · Docs → [getting-started](./docs/getting-started.md) · [FAQ](./docs/faq.md) · [troubleshooting](./docs/troubleshooting.md)
 
+![domain-harness demo (animated illustration)](./docs/domain-harness-demo.gif)
+
 **Automated domain investing pipeline.** Discover → value → register → list → settle —
 with hard budget walls and an AI Council that has to agree before any money moves.
 
