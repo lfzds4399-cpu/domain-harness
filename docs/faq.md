@@ -2,7 +2,7 @@
 
 ### Will this spend my money the moment I run it?
 
-No. `manifest.yaml` ships with `mode: dry_run`. Every `acquisition.buy()` call short-circuits and writes a `DRY_RUN` log line instead of hitting a registrar. The 22-case smoke suite exists to prove this in CI on every push.
+No. `manifest.yaml` ships with `mode: dry_run`. Every `acquisition.buy()` call short-circuits and writes a `DRY_RUN` log line instead of hitting a registrar. The 25-case smoke suite exists to prove this in CI on every push.
 
 You have to explicitly flip to `mode: live` **and** add a registrar key. If either is missing, no money moves.
 
@@ -41,7 +41,7 @@ Yes. `agents/acquisition.py` has a `register()` dispatch keyed on `manifest.regi
 python tests/e2e_smoke.py
 ```
 
-That's it. No pytest, no fixtures, no dependencies beyond `requirements.txt`. The 22 cases run end-to-end in DRY_RUN against the real validators and a stubbed registrar layer. Takes ~10 seconds.
+That's it. No pytest, no fixtures, no dependencies beyond `requirements.txt`. The 25 cases run end-to-end in DRY_RUN against the real validators and a stubbed registrar layer. Takes ~10 seconds.
 
 ### Does this work outside `.com`?
 

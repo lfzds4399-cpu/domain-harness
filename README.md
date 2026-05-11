@@ -30,7 +30,7 @@ Most "domain finders" you'll see on GitHub stop at the first stage — they spit
 - **Hard budget walls** — daily cap, monthly cap, per-domain cap, reserve floor. The buyer literally cannot exceed them; if any one trips, the loop stops.
 - **Multi-registrar fallback** — Porkbun → Cloudflare → Namecheap → GoDaddy by priority. If one rejects, the next tries.
 - **Trademark blacklist** — built-in list + user blacklist; no `mygoogle.com` accidents.
-- **22-case end-to-end smoke** — `tests/e2e_smoke.py` exercises every gate in DRY_RUN mode without touching a wallet. CI runs it on every push.
+- **25-case end-to-end smoke** — `tests/e2e_smoke.py` exercises every gate in DRY_RUN mode without touching a wallet. CI runs it on every push.
 
 ## Architecture
 
@@ -83,7 +83,7 @@ $ python tests/e2e_smoke.py
 [10] AI 议价（无 key 时降级）  ✓ negotiate_reply 返回 counter_offer
 [11] 清理测试数据         ✓ 清掉测试域名
 
-汇总：22 PASS / 0 FAIL/ERROR / 共 22
+汇总：25 PASS / 0 FAIL/ERROR / 共 25
 ```
 
 ## Install
@@ -91,7 +91,7 @@ $ python tests/e2e_smoke.py
 Requires Python 3.10+.
 
 ```bash
-git clone https://github.com/<your-username>/domain-harness.git
+git clone https://github.com/lfzds4399-cpu/domain-harness.git
 cd domain-harness
 pip install -r requirements.txt
 cp .env.example .env       # fill in only what you use
@@ -143,13 +143,15 @@ Secrets stay in `.env` — see [`.env.example`](./.env.example).
 ```
 domain-harness/
 ├── manifest.yaml           # all knobs
-├── cli.py                  # entrypoint
-├── core/                   # config / store / log
+├── cli.py                  # entrypoint (status / scan / appraise / buy / simulate / manifest)
+├── core/                   # config / store / log / manifest
 ├── validators/             # budget_guard / dup_check / whois_check / trademark_check
-├── agents/                 # valuation / valuation_council / acquisition / sales
+│                           # secret_scanner / cost_tracker
+├── agents/                 # discovery_aigen / discovery_expired
+│                           # valuation / valuation_council / acquisition / sales
 ├── pipelines/              # daily_scan / auto_register / portfolio_review
 ├── simulate/               # backtest + Monte Carlo report
-├── tests/                  # e2e_smoke (22 cases, DRY_RUN)
+├── tests/                  # e2e_smoke (25 cases, DRY_RUN)
 ├── data/                   # runtime state (gitignored)
 └── logs/                   # daily logs (gitignored)
 ```

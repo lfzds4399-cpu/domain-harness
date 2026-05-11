@@ -10,7 +10,7 @@ Lifts the repo onto the harness-engineering pattern (logging quiet mode, unified
 
 ### Added
 - **`-q` / `--quiet` flag + `DOMAIN_HARNESS_QUIET` env var** — suppresses INFO/OK/DRY console output for CC sessions and cron, while the JSONL file log keeps the complete record. Implementation in `core/log.py`.
-- **`core/manifest.py`** — top-level pipeline-stage manifest. Each pipeline (`daily_scan`, `auto_register`, `portfolio_review`) records a one-line summary (counts, errors, status) on completion. Persists at `data/manifest.json`. Surfaced via `domain-harness status` and a new `domain-harness manifest` command.
+- **`core/manifest.py`** — top-level pipeline-stage manifest. Each pipeline (`daily_scan`, `auto_register`, `portfolio_review`) records a one-line summary (counts, errors, status) on completion. Persists at `data/manifest.json`. Surfaced via `python cli.py status` and a new `python cli.py manifest` subcommand.
 - **`validators/secret_scanner.py`** — repo-tree scan for high-confidence credential patterns (sk-ant-, AKIA, ghp_, AIza, hf_, slack/replicate tokens). CLI: `python -m validators.secret_scanner --root . --strict` for pre-commit / CI. Honours inline `# allow-secret-here` placeholder hints.
 - **`validators/cost_tracker.py`** — process-local API spend ledger. Pipelines call `record(provider, op, usd)` at every external call; `report()` returns a per-provider / per-operation summary suitable for embedding in a manifest entry. Uses `RLock` so `report()` can compose `by_provider()` / `by_operation()` without deadlocking.
 - **3 new `e2e_smoke.py` cases** covering the new validators (clean scan + accumulation + reset round-trip). Total: 25/25 PASS, was 22/22.

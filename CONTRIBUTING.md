@@ -8,12 +8,12 @@ Thanks for your interest. This project is a working tool, not a toy — contribu
 git clone https://github.com/<your-fork>/domain-harness.git
 cd domain-harness
 pip install -r requirements.txt
-python tests/e2e_smoke.py        # must show 22/22 PASS
+python tests/e2e_smoke.py        # must show 25/25 PASS
 ```
 
 ## Before opening a PR
 
-1. **Run the smoke**: `python tests/e2e_smoke.py` must pass 22/22 in `DRY_RUN` mode. If your change touches a guard/validator, add a case here.
+1. **Run the smoke**: `python tests/e2e_smoke.py` must pass 25/25 in `DRY_RUN` mode. If your change touches a guard/validator, add a case here.
 2. **Keep the harness honest**: every spend gate, blacklist, or budget rule must be exercised by a smoke case. No "trust me" code paths.
 3. **Stay in `dry_run` for tests**: never commit code that calls a paid registrar API in tests.
 4. **Document new manifest knobs**: anything user-facing in `manifest.yaml` must be explained in `README.md` and have a sane default.

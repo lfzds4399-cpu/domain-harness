@@ -44,7 +44,7 @@ If you see this, the harness is wired up correctly.
 python tests/e2e_smoke.py
 ```
 
-22 cases must pass. They exercise every spend gate (valuation, trademark blacklist, budget guard, dup check, WHOIS) without touching a wallet. If even one fails, **stop** — you have a broken install, not a flaky test.
+25 cases must pass. They exercise every spend gate (valuation, trademark blacklist, budget guard, dup check, WHOIS) without touching a wallet. If even one fails, **stop** — you have a broken install, not a flaky test.
 
 ## 4. First scan (still no money)
 
