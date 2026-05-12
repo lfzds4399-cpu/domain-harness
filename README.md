@@ -171,8 +171,9 @@ Other small, single-author harnesses I publish under [@lfzds4399-cpu](https://gi
 | Repo | One line |
 |---|---|
 | [**ai-council**](https://github.com/lfzds4399-cpu/ai-council) | The multi-voter consensus framework that powers the valuation gate here — extracted, zero-dep, reusable |
+| [**claude-screen-mcp**](https://github.com/lfzds4399-cpu/claude-screen-mcp) | MCP server letting Claude see your screen (Windows + macOS + Linux) — OCR + smart vision-diff |
+| [**methods-harness**](https://github.com/lfzds4399-cpu/methods-harness) | SymPy-verified bilingual lesson pipeline for high-school calculus — same agents+validators+manifest pattern as this repo |
 | [**voice2ai**](https://github.com/lfzds4399-cpu/voice2ai) | Hands-free dictation for Windows — push-to-talk into VS Code / Cursor / WeChat / browsers, 4 STT providers |
-| [**sitige-harness**](https://github.com/lfzds4399-cpu/sitige-harness) | Pipeline runtime — composable agents / validators / pipelines, async, observable. domain-harness uses the same three-layer pattern |
 
 If domain-harness is useful, ⭐ the repo — it's the cheapest signal and it actually moves the needle.
 
