@@ -170,6 +170,7 @@ Other small, single-author harnesses I publish under [@lfzds4399-cpu](https://gi
 
 | Repo | One line |
 |---|---|
+| [**harness-engineering**](https://github.com/lfzds4399-cpu/harness-engineering) | The pattern (not a framework) this repo implements — agents + validators + manifest, written up after 6+ projects |
 | [**ai-council**](https://github.com/lfzds4399-cpu/ai-council) | The multi-voter consensus framework that powers the valuation gate here — extracted, zero-dep, reusable |
 | [**claude-screen-mcp**](https://github.com/lfzds4399-cpu/claude-screen-mcp) | MCP server letting Claude see your screen (Windows + macOS + Linux) — OCR + smart vision-diff |
 | [**methods-harness**](https://github.com/lfzds4399-cpu/methods-harness) | SymPy-verified bilingual lesson pipeline for high-school calculus — same agents+validators+manifest pattern as this repo |
