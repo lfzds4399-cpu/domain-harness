@@ -4,8 +4,9 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Mode: dry_run by default](https://img.shields.io/badge/mode-dry__run%20by%20default-green.svg)](#configuration)
+[![Launch article](https://img.shields.io/badge/dev.to-launch_article-black?logo=dev.to)](https://dev.to/lfzds4399cpu/automated-domain-investing-with-hard-budget-walls-and-an-ai-council-that-has-to-agree-before-any-n9o)
 
-> 中文版 → [README.zh-CN.md](./README.zh-CN.md) · Docs → [getting-started](./docs/getting-started.md) · [FAQ](./docs/faq.md) · [troubleshooting](./docs/troubleshooting.md)
+> 中文版 → [README.zh-CN.md](./README.zh-CN.md) · Docs → [getting-started](./docs/getting-started.md) · [FAQ](./docs/faq.md) · [troubleshooting](./docs/troubleshooting.md) · ✍ [Launch article on dev.to](https://dev.to/lfzds4399cpu/automated-domain-investing-with-hard-budget-walls-and-an-ai-council-that-has-to-agree-before-any-n9o)
 
 ![domain-harness demo (animated illustration)](./docs/domain-harness-demo.gif)
 
