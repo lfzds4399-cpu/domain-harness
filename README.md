@@ -4,9 +4,8 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Mode: dry_run by default](https://img.shields.io/badge/mode-dry__run%20by%20default-green.svg)](#configuration)
-[![Launch article](https://img.shields.io/badge/dev.to-launch_article-black?logo=dev.to)](https://dev.to/lfzds4399cpu/automated-domain-investing-with-hard-budget-walls-and-an-ai-council-that-has-to-agree-before-any-n9o)
 
-> 中文版 → [README.zh-CN.md](./README.zh-CN.md) · Docs → [getting-started](./docs/getting-started.md) · [FAQ](./docs/faq.md) · [troubleshooting](./docs/troubleshooting.md) · ✍ [Launch article on dev.to](https://dev.to/lfzds4399cpu/automated-domain-investing-with-hard-budget-walls-and-an-ai-council-that-has-to-agree-before-any-n9o)
+> 中文版 → [README.zh-CN.md](./README.zh-CN.md) · Docs → [getting-started](./docs/getting-started.md) · [FAQ](./docs/faq.md) · [troubleshooting](./docs/troubleshooting.md)
 
 ![domain-harness demo (animated illustration)](./docs/domain-harness-demo.gif)
 
@@ -22,16 +21,14 @@ discover  ─►  value  ─►  acquire  ─►  list  ─►  negotiate  ─�
                + DeepSeek)
 ```
 
-## Why this is different
+## What it does
 
-Most "domain finders" you'll see on GitHub stop at the first stage — they spit out a list of names. The real work is the rest:
-
-- **Two-tier valuation** — local heuristic gates filter ~90% of noise; only the survivors get billed against the AI Council. Saves tokens, raises signal.
-- **AI Council** — every shortlisted candidate is scored by **Claude + DeepSeek independently**. *Both* must clear a per-provider threshold before the harness will spend.
-- **Hard budget walls** — daily cap, monthly cap, per-domain cap, reserve floor. The buyer literally cannot exceed them; if any one trips, the loop stops.
+- **Two-tier valuation** — local heuristic gates filter candidates before any AI call. Survivors only are billed to the AI Council.
+- **AI Council** — shortlisted candidates are scored by Claude and DeepSeek independently. Both must clear a per-provider threshold before the harness will spend.
+- **Hard budget walls** — daily cap, monthly cap, per-domain cap, reserve floor. If any one trips, the loop stops before any registrar call.
 - **Multi-registrar fallback** — Porkbun → Cloudflare → Namecheap → GoDaddy by priority. If one rejects, the next tries.
-- **Trademark blacklist** — built-in list + user blacklist; no `mygoogle.com` accidents.
-- **25-case end-to-end smoke** — `tests/e2e_smoke.py` exercises every gate in DRY_RUN mode without touching a wallet. CI runs it on every push.
+- **Trademark blacklist** — built-in list plus user blacklist; rejects names like `mygoogle.com` before valuation.
+- **25-case end-to-end smoke** — `tests/e2e_smoke.py` exercises every spend gate in DRY_RUN mode without touching a wallet. CI runs it on every push.
 
 ## Architecture
 
@@ -159,25 +156,22 @@ domain-harness/
 
 ## Disclaimer
 
-Domain investing involves financial risk. This tool will spend real money once `mode: live` and registrar keys are set. Read `manifest.yaml` carefully, keep `dry_run` until you're sure, and start with a tiny daily cap. The author runs no guarantee.
+**This is not financial advice.** Domain investing involves real financial risk, including total loss of capital spent on registrations and renewals. Most speculatively-registered domains never resell.
+
+This tool automates spending decisions. Once `mode: live` is set in `manifest.yaml` and registrar API keys are configured, it will spend real money against your registrar accounts subject to the configured budget caps. The budget walls are hard (the loop stops when a cap trips) but they do not guarantee profit — they only bound the loss.
+
+Before flipping to `live`:
+
+- Read `manifest.yaml` end to end.
+- Run `python tests/e2e_smoke.py` and confirm 25 PASS.
+- Start with a daily cap small enough that you can lose it entirely without consequence.
+- Verify your registrar account balances and auto-renew settings independently of this tool.
+
+The author runs no guarantee of correctness, profit, or suitability. Use at your own risk.
 
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). The bar is: every spend gate must be exercised by a smoke case.
-
-## Sibling projects
-
-Other small, single-author harnesses I publish under [@lfzds4399-cpu](https://github.com/lfzds4399-cpu) — same MIT, same opinionated taste:
-
-| Repo | One line |
-|---|---|
-| [**harness-engineering**](https://github.com/lfzds4399-cpu/harness-engineering) | The pattern (not a framework) this repo implements — agents + validators + manifest, written up after 6+ projects |
-| [**ai-council**](https://github.com/lfzds4399-cpu/ai-council) | The multi-voter consensus framework that powers the valuation gate here — extracted, zero-dep, reusable |
-| [**claude-screen-mcp**](https://github.com/lfzds4399-cpu/claude-screen-mcp) | MCP server letting Claude see your screen (Windows + macOS + Linux) — OCR + smart vision-diff |
-| [**methods-harness**](https://github.com/lfzds4399-cpu/methods-harness) | SymPy-verified bilingual lesson pipeline for high-school calculus — same agents+validators+manifest pattern as this repo |
-| [**voice2ai**](https://github.com/lfzds4399-cpu/voice2ai) | Hands-free dictation for Windows — push-to-talk into VS Code / Cursor / WeChat / browsers, 4 STT providers |
-
-If domain-harness is useful, ⭐ the repo — it's the cheapest signal and it actually moves the needle.
 
 ## License
 
