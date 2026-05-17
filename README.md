@@ -107,8 +107,9 @@ fails, do not run live.
 
 ## Development
 
+The test suite is a single script, not pytest-collected:
+
 ```bash
-python -m pytest -q
 python tests/e2e_smoke.py
 ```
 
